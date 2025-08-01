@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Testimonials | NKV Financial Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --primary-dark: #0066ff;
+            --secondary: #1a1a2e;
+            --accent: #ff2d75;
+            --accent-light: #ff7aa8;
+            --light: #f0f8ff;
+            --dark: #0a0a12;
+            --gray: #a0a8c0;
+            --light-gray: #25253a;
+            --neon-glow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+            --neon-glow-accent: 0 0 10px rgba(255, 45, 117, 0.7), 0 0 20px rgba(255, 45, 117, 0.5);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+            --glass: rgba(26, 26, 46, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 45, 117, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: all 0.5s ease;
+            filter: drop-shadow(var(--neon-glow));
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        
+        /* Main Content */
+        .testimonials-main {
+            padding: 8rem 5% 5rem;
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .testimonials-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 45, 117, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Video Testimonials */
+        .video-testimonials {
+            margin-bottom: 5rem;
+        }
+        
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .video-card {
+            position: relative;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: all 0.5s;
+            aspect-ratio: 16/9;
+        }
+        
+        .video-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background-color: rgba(255, 45, 117, 0.8);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .play-btn:hover {
+            background-color: var(--accent);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .play-btn i {
+            color: white;
+            font-size: 1.5rem;
+            margin-left: 5px;
+        }
+        
+        /* Written Testimonials */
+        .written-testimonials {
+            margin-bottom: 5rem;
+        }
+        
+        .testimonial-slider {
+            position: relative;
+            max-width: 900px;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        
+        .testimonial-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .testimonial-card {
+            min-width: 100%;
+            padding: 0 1rem;
+            box-sizing: border-box;
+        }
+        
+        .testimonial-content {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            position: relative;
+        }
+        
+        .testimonial-content::before {
+            content: '\201C';
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            font-size: 5rem;
+            color: rgba(255, 255, 255, 0.1);
+            font-family: serif;
+            line-height: 1;
+        }
+        
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+        }
+        
+        .author-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 2px solid var(--primary);
+        }
+        
+        .author-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: var(--light);
+        }
+        
+        .author-position {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .slider-nav {
+            display: flex;
+            justify-content: center;
+            margin-top: 2rem;
+            gap: 1rem;
+        }
+        
+        .slider-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--light-gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .slider-dot.active {
+            background-color: var(--primary);
+            transform: scale(1.2);
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta-section p {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 45, 117, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 45, 117, 0.6);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .testimonial-content {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="NKV Financial Navigator Logo">
+            <h1>NKV Financial</h1>
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="emi-calculator.html">EMI Calculator</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="partners.html">Partners</a>
+            <a href="about.html">About</a>
+            <a href="team.html">Team</a>
+            <a href="testimonials.html" class="active">Testimonials</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="testimonials-main">
+        <div class="section-header">
+            <h2 class="section-title">Customer Testimonials</h2>
+            <p class="section-subtitle">Hear directly from our customers about their experiences with NKV Financial Navigator</p>
+        </div>
+
+        <!-- Video Testimonials -->
+        <section class="video-testimonials">
+            <h3 class="section-title" style="text-align: left; margin-bottom: 2rem;">Video Testimonials</h3>
+            <div class="video-grid">
+                <div class="video-card">
+                    <img src="https://via.placeholder.com/600x400?text=Customer+Video+1" alt="Customer Testimonial" class="video-thumbnail">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <img src="https://via.placeholder.com/600x400?text=Customer+Video+2" alt="Customer Testimonial" class="video-thumbnail">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+                
+                <div class="video-card">
+                    <img src="https://via.placeholder.com/600x400?text=Customer+Video+3" alt="Customer Testimonial" class="video-thumbnail">
+                    <div class="play-btn">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Written Testimonials -->
+        <section class="written-testimonials">
+            <h3 class="section-title" style="text-align: center; margin-bottom: 2rem;">What Our Customers Say</h3>
+            
+            <div class="testimonial-slider">
+                <div class="testimonial-track">
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "NKV Financial Navigator completely transformed my home buying experience. As a first-time buyer, I was overwhelmed, but their team guided me through every step. The interest rate I got was 0.5% lower than what I was quoted elsewhere, saving me lakhs over the loan tenure. The entire process was digital and completed in just 7 days!"
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Rahul Sharma" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Rahul Sharma</h4>
+                                    <div class="author-position">Home Loan Customer, Bangalore</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "When my daughter got admission to a university in the US, I was stressed about arranging funds. NKV's education loan team not only secured the best terms but also helped with forex and insurance. Their NRI specialist was available across time zones to address our queries. The moratorium period gives my daughter time to settle before starting repayments."
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Priya Nair" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Priya Nair</h4>
+                                    <div class="author-position">Education Loan Customer, Mumbai</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="testimonial-card">
+                        <div class="testimonial-content">
+                            <div class="testimonial-text">
+                                "As a small business owner, traditional banks always turned me down for loans. NKV understood my business model and connected me with an NBFC that specialized in my industry. The ₹25 lakh loan came through in 3 days with minimal paperwork. Their flexible repayment options during the lean season were a lifesaver for my cash flow."
+                            </div>
+                            <div class="testimonial-author">
+                                <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Vikram Patel" class="author-avatar">
+                                <div class="author-info">
+                                    <h4>Vikram Patel</h4>
+                                    <div class="author-position">Business Loan Customer, Ahmedabad</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="slider-nav">
+                    <div class="slider-dot active" data-slide="0"></div>
+                    <div class="slider-dot" data-slide="1"></div>
+                    <div class="slider-dot" data-slide="2"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section class="cta-section">
+            <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 1rem;">Ready to Experience the NKV Difference?</h3>
+            <p>Join thousands of satisfied customers who have achieved their financial goals with our help. Whether you're buying a home, expanding your business, or pursuing higher education, we're here to make your journey smoother.</p>
+            <a href="contact.html" class="cta-btn">Get Started Today</a>
+        </section>
+    </main>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Testimonial Slider
+        const track = document.querySelector('.testimonial-track');
+        const dots = document.querySelectorAll('.slider-dot');
+        let currentSlide = 0;
+        
+        function goToSlide(index) {
+            track.style.transform = `translateX(-${index * 100}%)`;
+            
+            // Update dots
+            dots.forEach(dot => dot.classList.remove('active'));
+            dots[index].classList.add('active');
+            
+            currentSlide = index;
+        }
+        
+        // Dot click events
+        dots.forEach(dot => {
+            dot.addEventListener('click', function() {
+                const slideIndex = parseInt(this.getAttribute('data-slide'));
+                goToSlide(slideIndex);
+            });
+        });
+        
+        // Auto slide
+        setInterval(() => {
+            currentSlide = (currentSlide + 1) % dots.length;
+            goToSlide(currentSlide);
+        }, 5000);
+        
+        // Video play buttons
+        const playButtons = document.querySelectorAll('.play-btn');
+        playButtons.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // In a real implementation, this would open a modal with the video
+                alert('This would play the customer testimonial video in a popup');
+            });
+        });
+    </script>
+</body>
+</html>

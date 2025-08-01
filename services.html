@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Financial Services | NKV Financial Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --primary-dark: #0066ff;
+            --secondary: #1a1a2e;
+            --accent: #ff2d75;
+            --accent-light: #ff7aa8;
+            --light: #f0f8ff;
+            --dark: #0a0a12;
+            --gray: #a0a8c0;
+            --light-gray: #25253a;
+            --neon-glow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+            --neon-glow-accent: 0 0 10px rgba(255, 45, 117, 0.7), 0 0 20px rgba(255, 45, 117, 0.5);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+            --glass: rgba(26, 26, 46, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 45, 117, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: all 0.5s ease;
+            filter: drop-shadow(var(--neon-glow));
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        
+        /* Main Content */
+        .services-main {
+            padding: 8rem 5% 5rem;
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .services-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 45, 117, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Loan Products Section */
+        .loan-products {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .loan-card {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.5s;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .loan-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg), var(--neon-glow);
+            border-color: var(--primary);
+        }
+        
+        .loan-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s;
+        }
+        
+        .loan-card:hover::before {
+            transform: scaleX(1);
+        }
+        
+        .loan-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            transition: all 0.5s;
+        }
+        
+        .loan-card:hover .loan-icon {
+            transform: scale(1.2);
+            color: var(--accent);
+        }
+        
+        .loan-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+        }
+        
+        .loan-features {
+            list-style: none;
+            margin: 1.5rem 0;
+        }
+        
+        .loan-features li {
+            margin-bottom: 0.8rem;
+            padding-left: 1.5rem;
+            position: relative;
+            color: var(--gray);
+        }
+        
+        .loan-features li::before {
+            content: '\f00c';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+        
+        .loan-cta {
+            display: inline-block;
+            padding: 0.8rem 1.8rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            box-shadow: 0 4px 15px rgba(255, 45, 117, 0.4);
+        }
+        
+        .loan-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 45, 117, 0.6);
+        }
+        
+        /* Financial Planning Section */
+        .financial-planning {
+            background-color: var(--dark);
+            padding: 5rem 5%;
+            border-radius: 15px;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .planning-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .planning-card {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.5s;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .planning-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg), var(--neon-glow);
+        }
+        
+        .planning-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="NKV Financial Navigator Logo">
+            <h1>NKV Financial</h1>
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html" class="active">Services</a>
+            <a href="emi-calculator.html">EMI Calculator</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="partners.html">Partners</a>
+            <a href="about.html">About</a>
+            <a href="team.html">Team</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="services-main">
+        <div class="section-header">
+            <h2 class="section-title">Our Financial Services</h2>
+            <p class="section-subtitle">Comprehensive financial solutions tailored to your unique needs and goals</p>
+        </div>
+
+        <!-- Loan Products Section -->
+        <section>
+            <h3 class="section-title" style="text-align: left; margin-bottom: 2rem;">Loan Products</h3>
+            <div class="loan-products">
+                <div class="loan-card">
+                    <div class="loan-icon">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Home Loans</h3>
+                    <p>Get the keys to your dream home with our competitive home loan rates and flexible repayment options.</p>
+                    <ul class="loan-features">
+                        <li>Loan amounts up to ₹5 crores</li>
+                        <li>Interest rates starting at 8.4% p.a.</li>
+                        <li>Tenure up to 30 years</li>
+                        <li>Pre-approved offers</li>
+                    </ul>
+                    <a href="#" class="loan-cta">Apply Now</a>
+                </div>
+
+                <div class="loan-card">
+                    <div class="loan-icon">
+                        <i class="fas fa-car"></i>
+                    </div>
+                    <h3>Car Loans</h3>
+                    <p>Drive home your favorite car with our quick and easy car loan approval process.</p>
+                    <ul class="loan-features">
+                        <li>100% on-road funding</li>
+                        <li>Interest rates from 7.9% p.a.</li>
+                        <li>Tenure up to 7 years</li>
+                        <li>Instant approval for select models</li>
+                    </ul>
+                    <a href="#" class="loan-cta">Apply Now</a>
+                </div>
+
+                <div class="loan-card">
+                    <div class="loan-icon">
+                        <i class="fas fa-graduation-cap"></i>
+                    </div>
+                    <h3>Education Loans</h3>
+                    <p>Invest in your future with our education loans covering domestic and international studies.</p>
+                    <ul class="loan-features">
+                        <li>Coverage up to ₹1.5 crores</li>
+                        <li>Moratorium period available</li>
+                        <li>Competitive interest rates</li>
+                        <li>No collateral for loans up to ₹7.5 lakhs</li>
+                    </ul>
+                    <a href="#" class="loan-cta">Apply Now</a>
+                </div>
+
+                <div class="loan-card">
+                    <div class="loan-icon">
+                        <i class="fas fa-briefcase"></i>
+                    </div>
+                    <h3>Personal Loans</h3>
+                    <p>Meet your personal financial needs with our hassle-free personal loans.</p>
+                    <ul class="loan-features">
+                        <li>Loans from ₹50,000 to ₹40 lakhs</li>
+                        <li>Interest rates starting at 10.5% p.a.</li>
+                        <li>Flexible tenure up to 5 years</li>
+                        <li>Instant approval for existing customers</li>
+                    </ul>
+                    <a href="#" class="loan-cta">Apply Now</a>
+                </div>
+
+                <div class="loan-card">
+                    <div class="loan-icon">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Business Loans</h3>
+                    <p>Fuel your business growth with our customized business loan solutions.</p>
+                    <ul class="loan-features">
+                        <li>Loan amounts up to ₹2 crores</li>
+                        <li>Quick disbursal within 72 hours</li>
+                        <li>Minimal documentation</li>
+                        <li>Flexible repayment options</li>
+                    </ul>
+                    <a href="#" class="loan-cta">Apply Now</a>
+                </div>
+
+                <div class="loan-card">
+                    <div class="loan-icon">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <h3>Credit Cards</h3>
+                    <p>Choose from our range of premium credit cards with exclusive benefits.</p>
+                    <ul class="loan-features">
+                        <li>Reward points on all spends</li>
+                        <li>No joining fee on select cards</li>
+                        <li>Complimentary airport lounge access</li>
+                        <li>Contactless payment technology</li>
+                    </ul>
+                    <a href="#" class="loan-cta">Apply Now</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Financial Planning Section -->
+        <section class="financial-planning">
+            <h3 class="section-title" style="margin-bottom: 2rem;">Financial Planning Services</h3>
+            <p class="section-subtitle" style="text-align: left; margin-bottom: 2rem;">Our comprehensive financial planning services help you achieve your life goals through strategic wealth management.</p>
+            
+            <div class="planning-grid">
+                <div class="planning-card">
+                    <h4>Retirement Planning</h4>
+                    <p>Secure your golden years with a customized retirement plan that ensures financial independence when you need it most.</p>
+                    <ul class="loan-features">
+                        <li>Pension planning</li>
+                        <li>Annuity solutions</li>
+                        <li>Tax-efficient strategies</li>
+                    </ul>
+                </div>
+
+                <div class="planning-card">
+                    <h4>Investment Management</h4>
+                    <p>Grow your wealth with our expert investment strategies tailored to your risk profile and financial objectives.</p>
+                    <ul class="loan-features">
+                        <li>Portfolio diversification</li>
+                        <li>Mutual fund advisory</li>
+                        <li>Stock market analysis</li>
+                    </ul>
+                </div>
+
+                <div class="planning-card">
+                    <h4>Tax Planning</h4>
+                    <p>Minimize your tax liabilities while maximizing savings through strategic tax planning solutions.</p>
+                    <ul class="loan-features">
+                        <li>Tax-saving investments</li>
+                        <li>Capital gains planning</li>
+                        <li>Tax-efficient withdrawals</li>
+                    </ul>
+                </div>
+
+                <div class="planning-card">
+                    <h4>Insurance Solutions</h4>
+                    <p>Protect what matters most with our comprehensive insurance coverage options.</p>
+                    <ul class="loan-features">
+                        <li>Life insurance</li>
+                        <li>Health insurance</li>
+                        <li>Asset protection</li>
+                    </ul>
+                </div>
+
+                <div class="planning-card">
+                    <h4>Estate Planning</h4>
+                    <p>Ensure your legacy is preserved and distributed according to your wishes with our estate planning services.</p>
+                    <ul class="loan-features">
+                        <li>Will preparation</li>
+                        <li>Trust creation</li>
+                        <li>Succession planning</li>
+                    </ul>
+                </div>
+
+                <div class="planning-card">
+                    <h4>NRI Services</h4>
+                    <p>Specialized financial solutions for Non-Resident Indians to manage their Indian investments.</p>
+                    <ul class="loan-features">
+                        <li>NRE/NRO accounts</li>
+                        <li>Repatriation planning</li>
+                        <li>Property management</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | NKV Financial Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --primary-dark: #0066ff;
+            --secondary: #1a1a2e;
+            --accent: #ff2d75;
+            --accent-light: #ff7aa8;
+            --light: #f0f8ff;
+            --dark: #0a0a12;
+            --gray: #a0a8c0;
+            --light-gray: #25253a;
+            --neon-glow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+            --neon-glow-accent: 0 0 10px rgba(255, 45, 117, 0.7), 0 0 20px rgba(255, 45, 117, 0.5);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+            --glass: rgba(26, 26, 46, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 45, 117, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: all 0.5s ease;
+            filter: drop-shadow(var(--neon-glow));
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        
+        /* Main Content */
+        .team-main {
+            padding: 8rem 5% 5rem;
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .team-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 45, 117, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Leadership Team */
+        .leadership-team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+            margin-bottom: 5rem;
+        }
+        
+        .leader-card {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            transition: all 0.5s;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .leader-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg), var(--neon-glow);
+        }
+        
+        .leader-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1.5rem;
+            border: 3px solid var(--primary);
+            transition: all 0.5s;
+        }
+        
+        .leader-card:hover .leader-image {
+            transform: scale(1.05);
+            border-color: var(--accent);
+        }
+        
+        .leader-info h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--light);
+        }
+        
+        .leader-position {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+        
+        .leader-bio {
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--gray);
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        /* Departments Section */
+        .departments-section {
+            background-color: var(--dark);
+            padding: 5rem 5%;
+            border-radius: 15px;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .department-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+        }
+        
+        .tab-btn {
+            padding: 0.8rem 1.8rem;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 30px;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+        }
+        
+        .department-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .member-card {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            transition: all 0.3s;
+            text-align: center;
+        }
+        
+        .member-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .member-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 1rem;
+            border: 2px solid var(--primary);
+        }
+        
+        .member-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: var(--light);
+        }
+        
+        .member-position {
+            color: var(--gray);
+            font-size: 0.9rem;
+        }
+        
+        /* Join Team Section */
+        .join-team {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .join-team p {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .join-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 45, 117, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .join-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 45, 117, 0.6);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .department-tabs {
+                justify-content: flex-start;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="NKV Financial Navigator Logo">
+            <h1>NKV Financial</h1>
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="emi-calculator.html">EMI Calculator</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="partners.html">Partners</a>
+            <a href="about.html">About</a>
+            <a href="team.html" class="active">Team</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="team-main">
+        <div class="section-header">
+            <h2 class="section-title">Meet Our Team</h2>
+            <p class="section-subtitle">A diverse group of financial experts, technologists, and customer champions working together to revolutionize your financial experience</p>
+        </div>
+
+        <!-- Leadership Team -->
+        <section>
+            <h3 class="section-title" style="text-align: left; margin-bottom: 2rem;">Leadership Team</h3>
+            <div class="leadership-team">
+                <div class="leader-card">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Nikhil Verma" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Nikhil Verma</h3>
+                        <div class="leader-position">Founder & CEO</div>
+                        <div class="leader-bio">
+                            <p>IIT Bombay alumnus with 15+ years in fintech. Founded NKV with a vision to democratize financial services through technology.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <img src="https://randomuser.me/api/portraits/women/45.jpg" alt="Kavita Sharma" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Kavita Sharma</h3>
+                        <div class="leader-position">Chief Operating Officer</div>
+                        <div class="leader-bio">
+                            <p>Former banking executive with expertise in risk management and operational scaling. Leads our customer experience initiatives.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <img src="https://randomuser.me/api/portraits/men/68.jpg" alt="Varun Khanna" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Varun Khanna</h3>
+                        <div class="leader-position">Chief Technology Officer</div>
+                        <div class="leader-bio">
+                            <p>Tech visionary with expertise in AI and blockchain. Architect of our award-winning loan processing platform.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <img src="https://randomuser.me/api/portraits/women/22.jpg" alt="Priya Patel" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Priya Patel</h3>
+                        <div class="leader-position">Chief Financial Officer</div>
+                        <div class="leader-bio">
+                            <p>Chartered Accountant with 12+ years in financial strategy. Oversees our financial health and investor relations.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <img src="https://randomuser.me/api/portraits/men/54.jpg" alt="Rahul Mehta" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Rahul Mehta</h3>
+                        <div class="leader-position">Chief Product Officer</div>
+                        <div class="leader-bio">
+                            <p>Product innovator with a passion for creating customer-centric financial solutions. Leads our product roadmap.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="leader-card">
+                    <img src="https://randomuser.me/api/portraits/women/76.jpg" alt="Ananya Reddy" class="leader-image">
+                    <div class="leader-info">
+                        <h3>Ananya Reddy</h3>
+                        <div class="leader-position">Chief Marketing Officer</div>
+                        <div class="leader-bio">
+                            <p>Brand strategist with expertise in digital marketing. Drives our mission to make financial literacy accessible.</p>
+                        </div>
+                        <div class="social-links">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                            <a href="#"><i class="fas fa-envelope"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Departments Section -->
+        <section class="departments-section">
+            <h3 class="section-title" style="margin-bottom: 2rem;">Our Departments</h3>
+            <p class="section-subtitle" style="text-align: center; margin-bottom: 2rem;">Meet the talented teams powering NKV Financial Navigator</p>
+            
+            <div class="department-tabs">
+                <button class="tab-btn active" data-department="technology">Technology</button>
+                <button class="tab-btn" data-department="operations">Operations</button>
+                <button class="tab-btn" data-department="sales">Sales</button>
+                <button class="tab-btn" data-department="marketing">Marketing</button>
+                <button class="tab-btn" data-department="finance">Finance</button>
+                <button class="tab-btn" data-department="customer-support">Customer Support</button>
+            </div>
+            
+            <div class="department-grid" id="technology-team">
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/men/11.jpg" alt="Arjun Desai" class="member-image">
+                    <div class="member-info">
+                        <h4>Arjun Desai</h4>
+                        <div class="member-position">VP of Engineering</div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/women/33.jpg" alt="Meera Joshi" class="member-image">
+                    <div class="member-info">
+                        <h4>Meera Joshi</h4>
+                        <div class="member-position">Product Manager</div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/men/44.jpg" alt="Rohan Malhotra" class="member-image">
+                    <div class="member-info">
+                        <h4>Rohan Malhotra</h4>
+                        <div class="member-position">Lead Developer</div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/women/55.jpg" alt="Divya Nair" class="member-image">
+                    <div class="member-info">
+                        <h4>Divya Nair</h4>
+                        <div class="member-position">Data Scientist</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="department-grid" id="operations-team" style="display: none;">
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/women/12.jpg" alt="Neha Gupta" class="member-image">
+                    <div class="member-info">
+                        <h4>Neha Gupta</h4>
+                        <div class="member-position">Operations Head</div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/men/23.jpg" alt="Vikram Singh" class="member-image">
+                    <div class="member-info">
+                        <h4>Vikram Singh</h4>
+                        <div class="member-position">Process Manager</div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/women/34.jpg" alt="Pooja Mehta" class="member-image">
+                    <div class="member-info">
+                        <h4>Pooja Mehta</h4>
+                        <div class="member-position">Quality Assurance</div>
+                    </div>
+                </div>
+                
+                <div class="member-card">
+                    <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Aditya Rao" class="member-image">
+                    <div class="member-info">
+                        <h4>Aditya Rao</h4>
+                        <div class="member-position">Compliance Officer</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Team Section -->
+        <section class="join-team">
+            <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 1rem;">Want to Join Our Team?</h3>
+            <p>At NKV Financial Navigator, we're always looking for passionate individuals who want to make a difference in the financial services industry. We offer competitive compensation, a dynamic work environment, and opportunities for professional growth.</p>
+            <p>Check out our current openings and become part of our mission to revolutionize financial services!</p>
+            <a href="contact.html#careers" class="join-cta">View Open Positions</a>
+        </section>
+    </main>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Department Tabs
+        const tabBtns = document.querySelectorAll('.tab-btn');
+        const departmentTeams = document.querySelectorAll('.department-grid');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Remove active class from all buttons
+                tabBtns.forEach(b => b.classList.remove('active'));
+                
+                // Add active class to clicked button
+                btn.classList.add('active');
+                
+                // Hide all department teams
+                departmentTeams.forEach(team => {
+                    team.style.display = 'none';
+                });
+                
+                // Show selected department team
+                const department = btn.getAttribute('data-department');
+                document.getElementById(`${department}-team`).style.display = 'grid';
+            });
+        });
+    </script>
+</body>
+</html>

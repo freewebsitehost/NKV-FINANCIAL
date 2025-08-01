@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQs | NKV Financial Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --primary-dark: #0066ff;
+            --secondary: #1a1a2e;
+            --accent: #ff2d75;
+            --accent-light: #ff7aa8;
+            --light: #f0f8ff;
+            --dark: #0a0a12;
+            --gray: #a0a8c0;
+            --light-gray: #25253a;
+            --neon-glow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+            --neon-glow-accent: 0 0 10px rgba(255, 45, 117, 0.7), 0 0 20px rgba(255, 45, 117, 0.5);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+            --glass: rgba(26, 26, 46, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 45, 117, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: all 0.5s ease;
+            filter: drop-shadow(var(--neon-glow));
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        
+        /* Main Content */
+        .faq-main {
+            padding: 8rem 5% 5rem;
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .faq-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 45, 117, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* FAQ Categories */
+        .faq-categories {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 0.8rem 1.8rem;
+            background-color: var(--light-gray);
+            border: none;
+            border-radius: 30px;
+            color: var(--gray);
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .category-btn.active {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--light);
+        }
+        
+        /* FAQ Accordion */
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .faq-item {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            transition: all 0.3s;
+        }
+        
+        .faq-item.active {
+            border-color: var(--primary);
+        }
+        
+        .faq-question {
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .faq-item.active .faq-question {
+            color: var(--primary);
+        }
+        
+        .faq-question i {
+            transition: transform 0.3s;
+        }
+        
+        .faq-item.active .faq-question i {
+            transform: rotate(180deg);
+            color: var(--primary);
+        }
+        
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+        
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+        
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            line-height: 1.7;
+        }
+        
+        /* Contact CTA */
+        .contact-cta {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 3rem;
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+        }
+        
+        .contact-cta h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        .contact-cta p {
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+        
+        .cta-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 45, 117, 0.4);
+            transition: all 0.3s;
+        }
+        
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 45, 117, 0.6);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .faq-categories {
+                justify-content: flex-start;
+            }
+            
+            .contact-cta {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="NKV Financial Navigator Logo">
+            <h1>NKV Financial</h1>
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="emi-calculator.html">EMI Calculator</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="partners.html">Partners</a>
+            <a href="about.html">About</a>
+            <a href="team.html">Team</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="faq.html" class="active">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="faq-main">
+        <div class="section-header">
+            <h2 class="section-title">Frequently Asked Questions</h2>
+            <p class="section-subtitle">Find answers to common questions about our loan products and services</p>
+        </div>
+
+        <!-- FAQ Categories -->
+        <div class="faq-categories">
+            <button class="category-btn active" data-category="all">All Questions</button>
+            <button class="category-btn" data-category="general">General</button>
+            <button class="category-btn" data-category="home-loan">Home Loans</button>
+            <button class="category-btn" data-category="personal-loan">Personal Loans</button>
+            <button class="category-btn" data-category="business-loan">Business Loans</button>
+            <button class="category-btn" data-category="education-loan">Education Loans</button>
+            <button class="category-btn" data-category="application">Application Process</button>
+        </div>
+
+        <!-- FAQ Accordion -->
+        <div class="faq-container">
+            <div class="faq-item active" data-categories="general">
+                <div class="faq-question">
+                    <span>What is NKV Financial Navigator?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>NKV Financial Navigator is a leading financial services platform that connects borrowers with the most suitable loan products from our network of 150+ banking partners. We simplify the loan application process, offer competitive interest rates, and provide personalized guidance throughout your loan journey.</p>
+                        <p>Our services include home loans, personal loans, business loans, education loans, and comprehensive financial planning solutions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="general,application">
+                <div class="faq-question">
+                    <span>How does the loan application process work?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Our process is simple and completely digital:</p>
+                        <ol>
+                            <li><strong>Application:</strong> Fill our online form (takes 5 minutes)</li>
+                            <li><strong>Documentation:</strong> Upload required documents through our secure portal</li>
+                            <li><strong>Approval:</strong> Get instant approval decision with loan terms</li>
+                            <li><strong>Disbursement:</strong> Receive funds in your account within 24-72 hours</li>
+                        </ol>
+                        <p>Each application is assigned a dedicated loan officer who guides you through every step.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="general">
+                <div class="faq-question">
+                    <span>What makes NKV different from banks or other lenders?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>NKV Financial Navigator offers several unique advantages:</p>
+                        <ul>
+                            <li><strong>Multiple Options:</strong> We compare offers from 150+ lenders to find your best match</li>
+                            <li><strong>Lower Rates:</strong> Our partnerships often secure rates 0.25%-1% below market</li>
+                            <li><strong>Faster Processing:</strong> Digital approval in as little as 15 minutes</li>
+                            <li><strong>Personalized Service:</strong> Dedicated loan officer for each application</li>
+                            <li><strong>No Hidden Fees:</strong> Complete transparency about all charges</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="home-loan">
+                <div class="faq-question">
+                    <span>What are the current interest rates for home loans?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Our home loan interest rates start at 8.40% p.a. for salaried individuals and 8.65% p.a. for self-employed applicants. The exact rate depends on:</p>
+                        <ul>
+                            <li>Loan amount and tenure</li>
+                            <li>Your credit score and financial profile</li>
+                            <li>Property type and location</li>
+                            <li>Current market conditions</li>
+                        </ul>
+                        <p>Use our <a href="emi-calculator.html" style="color: var(--primary);">EMI Calculator</a> to estimate your monthly payments based on different interest rates.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="home-loan,application">
+                <div class="faq-question">
+                    <span>What documents are required for a home loan application?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>For Salaried Individuals:</strong></p>
+                        <ul>
+                            <li>Identity proof (PAN Card, Aadhaar, Passport)</li>
+                            <li>Address proof (Aadhaar, Utility bills)</li>
+                            <li>Last 3 months' salary slips</li>
+                            <li>Form 16 or last 2 years' IT returns</li>
+                            <li>Last 6 months' bank statements</li>
+                            <li>Property documents (if finalized)</li>
+                        </ul>
+                        
+                        <p><strong>For Self-Employed Individuals:</strong></p>
+                        <ul>
+                            <li>Identity and address proof (same as above)</li>
+                            <li>Last 3 years' IT returns with profit/loss statements</li>
+                            <li>Last 3 years' balance sheets and audit reports</li>
+                            <li>Business proof (GST registration, trade license)</li>
+                            <li>Bank statements for last 12 months</li>
+                            <li>Property documents</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="personal-loan">
+                <div class="faq-question">
+                    <span>What is the maximum amount I can get as a personal loan?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Personal loan amounts range from ₹50,000 to ₹40 lakhs, depending on:</p>
+                        <ul>
+                            <li>Your monthly income (minimum ₹25,000 required)</li>
+                            <li>Employment stability (minimum 2 years for salaried)</li>
+                            <li>Credit score (minimum 650 recommended)</li>
+                            <li>Existing financial obligations</li>
+                        </ul>
+                        <p>Existing customers with good repayment history may qualify for higher amounts and preferential rates.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="business-loan">
+                <div class="faq-question">
+                    <span>What types of business loans do you offer?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>We offer a range of business financing solutions:</p>
+                        <ul>
+                            <li><strong>Term Loans:</strong> For expansion, equipment purchase (₹5 lakh to ₹2 crore)</li>
+                            <li><strong>Working Capital Loans:</strong> For daily operations (up to ₹1 crore)</li>
+                            <li><strong>MSME Loans:</strong> Special schemes for small businesses</li>
+                            <li><strong>Startup Loans:</strong> For businesses less than 3 years old</li>
+                            <li><strong>Loan Against Property:</strong> For business needs using property as collateral</li>
+                            <li><strong>Invoice Financing:</strong> Against unpaid invoices</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="education-loan">
+                <div class="faq-question">
+                    <span>Do education loans require collateral?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Collateral requirements depend on the loan amount:</p>
+                        <ul>
+                            <li><strong>Up to ₹7.5 lakh:</strong> No collateral required</li>
+                            <li><strong>₹7.5 lakh to ₹1.5 crore:</strong> Collateral required (property or fixed deposits)</li>
+                        </ul>
+                        <p>Some premier institutions have special schemes where loans up to ₹20 lakh may not require collateral. We also offer a moratorium period where repayments start only after course completion.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="application">
+                <div class="faq-question">
+                    <span>How long does it take to get loan approval?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Approval times vary by loan type:</p>
+                        <ul>
+                            <li><strong>Personal Loans:</strong> 15 minutes to 4 hours</li>
+                            <li><strong>Home Loans:</strong> 24 to 72 hours</li>
+                            <li><strong>Business Loans:</strong> 24 to 48 hours</li>
+                            <li><strong>Education Loans:</strong> 3 to 5 working days</li>
+                        </ul>
+                        <p>These are approximate timelines assuming all documents are submitted correctly. Pre-approved customers may get instant approvals.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="faq-item" data-categories="general">
+                <div class="faq-question">
+                    <span>Is my personal and financial information secure with NKV?</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Absolutely. We prioritize your data security with:</p>
+                        <ul>
+                            <li>Bank-level 256-bit SSL encryption for all data transfers</li>
+                            <li>Secure servers with regular security audits</li>
+                            <li>Strict privacy policies - we never share your data without consent</li>
+                            <li>RBAC (Role-Based Access Control) for employee data access</li>
+                            <li>Regular staff training on data protection</li>
+                        </ul>
+                        <p>We comply with all RBI guidelines and data protection laws to ensure your information remains confidential.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Contact CTA -->
+        <div class="contact-cta">
+            <h3>Still Have Questions?</h3>
+            <p>Our customer support team is available 24/7 to assist you with any queries about our loan products or application process.</p>
+            <a href="contact.html" class="cta-btn">Contact Us Now</a>
+        </div>
+    </main>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // FAQ Accordion
+        const faqQuestions = document.querySelectorAll('.faq-question');
+        
+        faqQuestions.forEach(question => {
+            question.addEventListener('click', () => {
+                const faqItem = question.parentElement;
+                faqItem.classList.toggle('active');
+                
+                // Close other items if this one is opened
+                if (faqItem.classList.contains('active')) {
+                    document.querySelectorAll('.faq-item').forEach(item => {
+                        if (item !== faqItem) {
+                            item.classList.remove('active');
+                        }
+                    });
+                }
+            });
+        });
+        
+        // FAQ Category Filter
+        const categoryBtns = document.querySelectorAll('.category-btn');
+        const faqItems = document.querySelectorAll('.faq-item');
+        
+        categoryBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Update active button
+                categoryBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const category = btn.getAttribute('data-category');
+                
+                // Filter FAQs
+                faqItems.forEach(item => {
+                    const categories = item.getAttribute('data-categories').split(' ');
+                    
+                    if (category === 'all' || categories.includes(category)) {
+                        item.style.display = 'block';
+                    } else {
+                        item.style.display = 'none';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>

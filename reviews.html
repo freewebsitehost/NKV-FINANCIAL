@@ -1,0 +1,742 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Customer Reviews | NKV Financial Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --primary-dark: #0066ff;
+            --secondary: #1a1a2e;
+            --accent: #ff2d75;
+            --accent-light: #ff7aa8;
+            --light: #f0f8ff;
+            --dark: #0a0a12;
+            --gray: #a0a8c0;
+            --light-gray: #25253a;
+            --neon-glow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+            --neon-glow-accent: 0 0 10px rgba(255, 45, 117, 0.7), 0 0 20px rgba(255, 45, 117, 0.5);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+            --glass: rgba(26, 26, 46, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 45, 117, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: all 0.5s ease;
+            filter: drop-shadow(var(--neon-glow));
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        
+        /* Main Content */
+        .reviews-main {
+            padding: 8rem 5% 5rem;
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .reviews-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 45, 117, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Reviews Grid */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .review-card {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: var(--shadow);
+            transition: all 0.5s;
+            border: 1px solid var(--glass-border);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .review-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg), var(--neon-glow);
+            border-color: var(--primary);
+        }
+        
+        .review-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .review-avatar {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-right: 1.5rem;
+            border: 2px solid var(--primary);
+        }
+        
+        .review-info h4 {
+            font-size: 1.2rem;
+            margin-bottom: 0.3rem;
+            color: var(--light);
+        }
+        
+        .review-date {
+            font-size: 0.9rem;
+            color: var(--gray);
+        }
+        
+        .review-rating {
+            color: #ffc107;
+            margin-bottom: 1rem;
+        }
+        
+        .review-content {
+            line-height: 1.7;
+        }
+        
+        /* Rating Summary */
+        .rating-summary {
+            background-color: var(--dark);
+            padding: 5rem 5%;
+            border-radius: 15px;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+            border: 1px solid var(--glass-border);
+            text-align: center;
+        }
+        
+        .overall-rating {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .stars {
+            font-size: 2rem;
+            color: #ffc107;
+            margin-bottom: 2rem;
+        }
+        
+        .total-reviews {
+            font-size: 1.2rem;
+            color: var(--gray);
+            margin-bottom: 3rem;
+        }
+        
+        .rating-bars {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .rating-bar {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-label {
+            width: 80px;
+            text-align: right;
+            margin-right: 1rem;
+        }
+        
+        .bar-container {
+            flex-grow: 1;
+            height: 10px;
+            background-color: var(--light-gray);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+        
+        .bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        /* Review Form */
+        .review-form {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 3rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--glass-border);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--light);
+        }
+        
+        .form-group input, 
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 1rem;
+            background-color: rgba(10, 10, 18, 0.7);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--light);
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+        
+        .form-group textarea {
+            min-height: 150px;
+        }
+        
+        .form-group input:focus, 
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0, 240, 255, 0.1);
+        }
+        
+        .rating-input {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+        
+        .rating-input i {
+            font-size: 1.5rem;
+            color: var(--gray);
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .rating-input i.active {
+            color: #ffc107;
+        }
+        
+        .submit-btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 45, 117, 0.4);
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 45, 117, 0.6);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .review-form {
+                padding: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="NKV Financial Navigator Logo">
+            <h1>NKV Financial</h1>
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="emi-calculator.html">EMI Calculator</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="partners.html">Partners</a>
+            <a href="reviews.html" class="active">Reviews</a>
+            <a href="about.html">About</a>
+            <a href="team.html">Team</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="reviews-main">
+        <div class="section-header">
+            <h2 class="section-title">Customer Reviews</h2>
+            <p class="section-subtitle">Hear what our customers have to say about their experience with NKV Financial Navigator</p>
+        </div>
+
+        <!-- Rating Summary -->
+        <section class="rating-summary">
+            <div class="overall-rating">4.8</div>
+            <div class="stars">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star-half-alt"></i>
+            </div>
+            <div class="total-reviews">Based on 2,457 reviews</div>
+            
+            <div class="rating-bars">
+                <div class="rating-bar">
+                    <div class="rating-label">5 Stars</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 78%"></div>
+                    </div>
+                </div>
+                
+                <div class="rating-bar">
+                    <div class="rating-label">4 Stars</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 15%"></div>
+                    </div>
+                </div>
+                
+                <div class="rating-bar">
+                    <div class="rating-label">3 Stars</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 5%"></div>
+                    </div>
+                </div>
+                
+                <div class="rating-bar">
+                    <div class="rating-label">2 Stars</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 1%"></div>
+                    </div>
+                </div>
+                
+                <div class="rating-bar">
+                    <div class="rating-label">1 Star</div>
+                    <div class="bar-container">
+                        <div class="bar" style="width: 1%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Reviews Grid -->
+        <section>
+            <h3 class="section-title" style="text-align: left; margin-bottom: 2rem;">Recent Reviews</h3>
+            <div class="reviews-grid">
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/women/32.jpg" alt="Riya Sharma" class="review-avatar">
+                        <div class="review-info">
+                            <h4>Riya Sharma</h4>
+                            <div class="review-date">15 June 2023</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-content">
+                        <p>NKV Financial Navigator made my home loan process incredibly smooth. The interest rate I got was much better than what other banks were offering. The entire process was transparent and completed within a week. Highly recommended!</p>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/men/45.jpg" alt="Amit Patel" class="review-avatar">
+                        <div class="review-info">
+                            <h4>Amit Patel</h4>
+                            <div class="review-date">8 June 2023</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-content">
+                        <p>I needed a personal loan urgently for a medical emergency. NKV team worked round the clock to get my loan approved and disbursed within 24 hours. Their customer support was exceptional throughout the process.</p>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/women/68.jpg" alt="Priya Nair" class="review-avatar">
+                        <div class="review-info">
+                            <h4>Priya Nair</h4>
+                            <div class="review-date">2 June 2023</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star-half-alt"></i>
+                    </div>
+                    <div class="review-content">
+                        <p>As an NRI, I was struggling to get a home loan in India. NKV Financial understood my unique situation and connected me with banks that offer NRI loans. The entire process was handled digitally, which was very convenient.</p>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Rajesh Kumar" class="review-avatar">
+                        <div class="review-info">
+                            <h4>Rajesh Kumar</h4>
+                            <div class="review-date">28 May 2023</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-content">
+                        <p>Their business loan helped me expand my restaurant chain. What impressed me most was their flexibility in repayment options during the initial months when cash flow was tight. Truly partner-oriented approach.</p>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/women/54.jpg" alt="Neha Gupta" class="review-avatar">
+                        <div class="review-info">
+                            <h4>Neha Gupta</h4>
+                            <div class="review-date">20 May 2023</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="far fa-star"></i>
+                    </div>
+                    <div class="review-content">
+                        <p>Good experience overall. Got a decent rate on my car loan. The only reason I'm not giving 5 stars is because the document upload process could be more intuitive. But the customer support helped me through it.</p>
+                    </div>
+                </div>
+
+                <div class="review-card">
+                    <div class="review-header">
+                        <img src="https://randomuser.me/api/portraits/men/76.jpg" alt="Vikram Singh" class="review-avatar">
+                        <div class="review-info">
+                            <h4>Vikram Singh</h4>
+                            <div class="review-date">12 May 2023</div>
+                        </div>
+                    </div>
+                    <div class="review-rating">
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="review-content">
+                        <p>I was skeptical about online loan services, but NKV proved me wrong. Their EMI calculator helped me plan my finances better, and the loan officer assigned to me was extremely knowledgeable. Will definitely use again!</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Review Form -->
+        <section>
+            <h3 class="section-title" style="margin-bottom: 2rem;">Share Your Experience</h3>
+            <div class="review-form">
+                <form id="addReviewForm">
+                    <div class="form-group">
+                        <label for="reviewName">Your Name</label>
+                        <input type="text" id="reviewName" name="reviewName" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewEmail">Email Address</label>
+                        <input type="email" id="reviewEmail" name="reviewEmail" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Your Rating</label>
+                        <div class="rating-input">
+                            <i class="far fa-star" data-rating="1"></i>
+                            <i class="far fa-star" data-rating="2"></i>
+                            <i class="far fa-star" data-rating="3"></i>
+                            <i class="far fa-star" data-rating="4"></i>
+                            <i class="far fa-star" data-rating="5"></i>
+                        </div>
+                        <input type="hidden" id="reviewRating" name="reviewRating" value="0">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewTitle">Review Title</label>
+                        <input type="text" id="reviewTitle" name="reviewTitle" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="reviewContent">Your Review</label>
+                        <textarea id="reviewContent" name="reviewContent" required></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="loanType">Loan Type</label>
+                        <select id="loanType" name="loanType">
+                            <option value="home">Home Loan</option>
+                            <option value="personal">Personal Loan</option>
+                            <option value="car">Car Loan</option>
+                            <option value="business">Business Loan</option>
+                            <option value="education">Education Loan</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Submit Review</button>
+                </form>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Rating Stars Interaction
+        const stars = document.querySelectorAll('.rating-input i');
+        const ratingInput = document.getElementById('reviewRating');
+        
+        stars.forEach(star => {
+            star.addEventListener('click', () => {
+                const rating = parseInt(star.getAttribute('data-rating'));
+                ratingInput.value = rating;
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.remove('far');
+                        s.classList.add('fas');
+                    } else {
+                        s.classList.remove('fas');
+                        s.classList.add('far');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseover', () => {
+                const rating = parseInt(star.getAttribute('data-rating'));
+                
+                stars.forEach((s, index) => {
+                    if (index < rating) {
+                        s.classList.add('hover');
+                    } else {
+                        s.classList.remove('hover');
+                    }
+                });
+            });
+            
+            star.addEventListener('mouseout', () => {
+                stars.forEach(s => {
+                    s.classList.remove('hover');
+                });
+            });
+        });
+
+        // Form Submission
+        document.getElementById('addReviewForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            if (ratingInput.value === '0') {
+                alert('Please select a rating');
+                return;
+            }
+            
+            // Here you would typically send the data to your server
+            alert('Thank you for your review! It will be published after moderation.');
+            this.reset();
+            
+            // Reset stars
+            stars.forEach(star => {
+                star.classList.remove('fas');
+                star.classList.add('far');
+            });
+            ratingInput.value = '0';
+        });
+    </script>
+</body>
+</html>

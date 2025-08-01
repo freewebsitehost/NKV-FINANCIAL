@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Partners | NKV Financial Navigator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #00f0ff;
+            --primary-dark: #0066ff;
+            --secondary: #1a1a2e;
+            --accent: #ff2d75;
+            --accent-light: #ff7aa8;
+            --light: #f0f8ff;
+            --dark: #0a0a12;
+            --gray: #a0a8c0;
+            --light-gray: #25253a;
+            --neon-glow: 0 0 10px rgba(0, 240, 255, 0.7), 0 0 20px rgba(0, 240, 255, 0.5);
+            --neon-glow-accent: 0 0 10px rgba(255, 45, 117, 0.7), 0 0 20px rgba(255, 45, 117, 0.5);
+            --shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.4);
+            --glass: rgba(26, 26, 46, 0.7);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        body {
+            background-color: var(--dark);
+            color: var(--light);
+            overflow-x: hidden;
+            line-height: 1.6;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(255, 45, 117, 0.05) 0%, transparent 20%);
+        }
+        
+        /* Navigation */
+        nav {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: var(--shadow);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .logo img {
+            height: 40px;
+            transition: all 0.5s ease;
+            filter: drop-shadow(var(--neon-glow));
+        }
+        
+        .logo h1 {
+            color: var(--primary);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-shadow: var(--neon-glow);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--light);
+            font-weight: 500;
+            transition: all 0.3s;
+            position: relative;
+            font-size: 1.05rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--light);
+            transition: all 0.3s;
+            z-index: 1001;
+        }
+        
+        /* Main Content */
+        .partners-main {
+            padding: 8rem 5% 5rem;
+            background-color: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .partners-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(circle at 20% 30%, rgba(0, 240, 255, 0.1) 0%, transparent 30%),
+                radial-gradient(circle at 80% 70%, rgba(255, 45, 117, 0.1) 0%, transparent 30%);
+            z-index: 1;
+        }
+        
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+            font-family: 'Orbitron', sans-serif;
+        }
+        
+        .section-subtitle {
+            font-size: 1.2rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        /* Partners Grid */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 3rem;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .partner-card {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow);
+            transition: all 0.5s;
+            border: 1px solid var(--glass-border);
+            height: 200px;
+        }
+        
+        .partner-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg), var(--neon-glow);
+            border-color: var(--primary);
+        }
+        
+        .partner-logo {
+            max-width: 150px;
+            max-height: 80px;
+            object-fit: contain;
+            filter: grayscale(100%) brightness(1.5);
+            transition: all 0.5s;
+        }
+        
+        .partner-card:hover .partner-logo {
+            filter: grayscale(0) brightness(1);
+        }
+        
+        /* Partnership Benefits */
+        .benefits-section {
+            background-color: var(--dark);
+            padding: 5rem 5%;
+            border-radius: 15px;
+            margin-bottom: 5rem;
+            position: relative;
+            z-index: 2;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            margin-top: 3rem;
+        }
+        
+        .benefit-card {
+            background-color: var(--glass);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: var(--shadow);
+            transition: all 0.5s;
+            border: 1px solid var(--glass-border);
+        }
+        
+        .benefit-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .benefit-card h4 {
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            color: var(--primary);
+        }
+        
+        /* Become Partner Section */
+        .become-partner {
+            text-align: center;
+            margin-top: 3rem;
+        }
+        
+        .partner-cta {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-light));
+            color: white;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(255, 45, 117, 0.4);
+            transition: all 0.3s;
+            margin-top: 1rem;
+        }
+        
+        .partner-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 45, 117, 0.6);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background-color: var(--glass);
+                backdrop-filter: blur(10px);
+                -webkit-backdrop-filter: blur(10px);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 3rem;
+                transition: left 0.3s;
+                z-index: 999;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+            
+            .partners-grid {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logo.png" alt="NKV Financial Navigator Logo">
+            <h1>NKV Financial</h1>
+        </a>
+        <button class="mobile-menu-btn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="services.html">Services</a>
+            <a href="emi-calculator.html">EMI Calculator</a>
+            <a href="why-us.html">Why Us</a>
+            <a href="partners.html" class="active">Partners</a>
+            <a href="about.html">About</a>
+            <a href="team.html">Team</a>
+            <a href="testimonials.html">Testimonials</a>
+            <a href="faq.html">FAQ</a>
+            <a href="contact.html">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="partners-main">
+        <div class="section-header">
+            <h2 class="section-title">Our Trusted Partners</h2>
+            <p class="section-subtitle">We collaborate with leading financial institutions to bring you the best loan products and services</p>
+        </div>
+
+        <!-- Banking Partners -->
+        <section>
+            <h3 class="section-title" style="text-align: left; margin-bottom: 2rem;">Banking Partners</h3>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=HDFC+Bank" alt="HDFC Bank" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=ICICI+Bank" alt="ICICI Bank" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=SBI" alt="State Bank of India" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=Axis+Bank" alt="Axis Bank" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=Kotak+Bank" alt="Kotak Mahindra Bank" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=IndusInd+Bank" alt="IndusInd Bank" class="partner-logo">
+                </div>
+            </div>
+        </section>
+
+        <!-- NBFC Partners -->
+        <section>
+            <h3 class="section-title" style="text-align: left; margin-bottom: 2rem;">NBFC Partners</h3>
+            <div class="partners-grid">
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=Bajaj+Finserv" alt="Bajaj Finserv" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=HDB+Financial" alt="HDB Financial Services" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=Tata+Capital" alt="Tata Capital" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=Aditya+Birla" alt="Aditya Birla Capital" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=Shriram+Finance" alt="Shriram Finance" class="partner-logo">
+                </div>
+
+                <div class="partner-card">
+                    <img src="https://via.placeholder.com/150x80?text=Cholamandalam" alt="Cholamandalam Finance" class="partner-logo">
+                </div>
+            </div>
+        </section>
+
+        <!-- Partnership Benefits -->
+        <section class="benefits-section">
+            <h3 class="section-title" style="margin-bottom: 2rem;">Benefits of Partnering With Us</h3>
+            <p class="section-subtitle" style="text-align: left; margin-bottom: 2rem;">We create win-win partnerships that drive growth for all stakeholders</p>
+            
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <h4>Expanded Customer Reach</h4>
+                    <p>Access our extensive network of customers actively seeking financial products and services.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Technology Integration</h4>
+                    <p>Leverage our cutting-edge platform for seamless loan processing and customer management.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Risk Mitigation</h4>
+                    <p>Our advanced analytics help minimize risk through comprehensive customer profiling.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Revenue Growth</h4>
+                    <p>Increase your loan book with qualified leads and higher conversion rates.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Brand Visibility</h4>
+                    <p>Enhance your brand presence through our marketing channels and customer touchpoints.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <h4>Operational Efficiency</h4>
+                    <p>Reduce processing time and costs with our automated workflows and document management.</p>
+                </div>
+            </div>
+
+            <div class="become-partner">
+                <h3 class="section-title" style="font-size: 1.8rem; margin-bottom: 1rem;">Want to Become a Partner?</h3>
+                <p>Join our network of financial institutions and grow your business with NKV Financial Navigator</p>
+                <a href="contact.html" class="partner-cta">Get in Touch</a>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // Mobile Menu Toggle
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.querySelector('.nav-links');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            mobileMenuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        });
+
+        // Smooth Scrolling for Navigation Links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
